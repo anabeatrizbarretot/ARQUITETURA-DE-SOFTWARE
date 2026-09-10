@@ -67,7 +67,9 @@ class ShoppingCart {
         this.items = items;
     }
 
-    public List<ItemItems> getItems() { return items; }
+    public List<ItemItems> getItems() { 
+        return items; 
+    }
 }
 
 class ShippingCost {
@@ -85,8 +87,13 @@ class ShippingCost {
         this.deliveryCompany = deliveryCompany;
     }
 
-    public double getCost() { return cost; }
-    public int getDays() { return days; }
+    public double getCost() { 
+        return cost; 
+    }
+
+    public int getDays() { 
+        return days; 
+    }
 }
 
 interface DeliveryCompany {
@@ -110,11 +117,9 @@ class Location {
         this.number = number;
     }
 
-    public ShippingCost calculateShipping(DeliveryCompany deliveryCompany, ShoppingCart cart) {
-        return deliveryCompany.calcShippingCost(this, cart);
+    public String getZipcode() { 
+        return zipcode; 
     }
-
-    public String getZipcode() { return zipcode; }
 }
 
 class CorreiosDeliveryService implements DeliveryCompany {
@@ -127,10 +132,14 @@ class CorreiosDeliveryService implements DeliveryCompany {
     }
 
     @Override
-    public int getId() { return id; }
+    public int getId() { 
+        return id; 
+    }
 
     @Override
-    public String getName() { return name; }
+    public String getName() { 
+        return name; 
+    }
 
     @Override
     public ShippingCost calcShippingCost(Location address, ShoppingCart cart) {
@@ -143,11 +152,28 @@ class CorreiosDeliveryService implements DeliveryCompany {
 
 public class EcommerceShipping {
     public static void main(String[] args) {
-        Location endereco = new Location(1, "Av. Paulista", "São Paulo", "01310-100", "1000");
-        DeliveryCompany correios = new CorreiosDeliveryService(10, "Correios Express");
-        ShoppingCart carrinho = new ShoppingCart(1, Collections.emptyList());
+        Location endereco = new Location(
+            1,
+            "Av. Paulista",
+            "São Paulo",
+            "01310-100",
+            "1000"
+        );
 
-        ShippingCost frete = endereco.calculateShipping(correios, carrinho);
+        DeliveryCompany correios = new CorreiosDeliveryService(
+            10,
+            "Correios Express"
+        );
+
+        ShoppingCart carrinho = new ShoppingCart(
+            1,
+            Collections.emptyList()
+        );
+
+        ShippingCost frete = correios.calcShippingCost(
+            endereco,
+            carrinho
+        );
 
         System.out.println("Frete calculado com sucesso!");
         System.out.println("Valor: R$ " + frete.getCost());
